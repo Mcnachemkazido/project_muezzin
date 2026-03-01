@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-class CreatingMetadata:
+class ExtractMetadata:
     def __init__(self,logger):
         self.logger = logger
 
