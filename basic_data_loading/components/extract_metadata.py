@@ -9,10 +9,11 @@ class ExtractMetadata:
         size_bytes = path.stat().st_size
 
         timestamp = path.stat().st_mtime
-        modify_time = datetime.fromtimestamp(timestamp)
+        modify_time = datetime.fromtimestamp(timestamp).isoformat()
+
 
         current_timestamp = path.stat().st_ctime
-        create_time = datetime.fromtimestamp(current_timestamp)
+        create_time = datetime.fromtimestamp(current_timestamp).isoformat()
 
         self.logger.info(f'1️⃣I created metadata for file name: {path.name}')
         return {'name':path.name,'size_bytes':size_bytes,

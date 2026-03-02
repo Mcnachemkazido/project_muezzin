@@ -15,7 +15,7 @@ class KafkaProducer:
     def send(self,event):
         value = json.dumps(event).encode('utf-8')
         self.producer.produce(topic=self.topic_name,value=value,callback=self.callback)
-        self.logger.info(f'2️⃣ i send to kafka file file name: {event['meta_data']['name']}')
+        self.logger.info(f"2️⃣ i send to kafka file file name: {event['meta_data']['name']}")
         self.producer.flush()
 
 
@@ -24,5 +24,5 @@ class KafkaProducer:
             self.logger.error(f'error: {err}')
 
         else:
-            self.logger.info(f'msg: {msg.value().decode('utf-8')}')
+            self.logger.info(f"msg: {msg.value().decode('utf-8')}")
             self.logger.info(f'topic: {msg.topic()}, offset: {msg.offset()}')

@@ -1,4 +1,5 @@
 services:
+
   kafka:
     image: confluentinc/cp-kafka:7.8.3
     container_name: kafka
@@ -27,7 +28,91 @@ services:
       start_period: 20s
 
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+    container_name: es
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+    healthcheck:
+      test: curl -u elastic:elastic -s -f elasticsearch:9200/_cat/health >/dev/null || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.12.2
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: asdf
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    healthcheck:
+      test: [ "CMD","mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+
+  basic_data_loading:
+    build: ./basic_data_loading
+    container_name: basic_data_loading
+    environment:
+      PATH_FILES: data/podcasts
+      BOOTSTRAP_SERVERS: kafka:29092
+    volumes:
+      - C:/podcasts:/app/data/podcasts
+
+    depends_on:
+      kafka:
+        condition: service_healthy
+
+  storage_to_db:
+    build: ./storage_to_db
+    container_name: storage_to_db
+    environment:
+      BOOTSTRAP_SERVERS: kafka:29092
+      ES_URI: http://elasticsearch:9200
+      MONGO_URI: mongodb://root:asdf@mongodb:27017
+    volumes:
+      - C:/podcasts:/app/data/podcasts
+    depends_on:
+      kafka:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+
+
+
 volumes:
   kafka_data:
+  elasticsearch-data:
+  mongodb-data:
+
+
 
 
