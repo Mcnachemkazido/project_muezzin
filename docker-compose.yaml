@@ -77,7 +77,10 @@ services:
 
 
   basic_data_loading:
-    build: ./basic_data_loading
+    build:
+      context: .
+      dockerfile: basic_data_loading/Dockerfile
+
     container_name: basic_data_loading
     environment:
       PATH_FILES: data/podcasts
@@ -95,7 +98,9 @@ services:
 
 
   storage_to_db:
-    build: ./storage_to_db
+    build:
+      context: .
+      dockerfile: storage_to_db/Dockerfile
     container_name: storage_to_db
     environment:
       BOOTSTRAP_SERVERS: kafka:29092

@@ -34,11 +34,6 @@ class Logger:
 
 
 
-es = Elasticsearch(LoggersVariables.get_es_uri())
 
-res = es.search(index="logger",query={'match_all':{}},size=10000)
-hits = res['hits']['hits']
-print(len(hits))
-for hit in hits:
-    print(hit['_source']['message'])
+
 

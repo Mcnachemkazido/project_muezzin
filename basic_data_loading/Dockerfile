@@ -2,9 +2,12 @@ FROM python:3.11-slim
 
 WORKDIR app
 
-COPY requirements.txt ./
+COPY basic_data_loading/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY basic_data_loading ./basic_data_loading
+COPY shared ./shared
 
-CMD ["python","./main.py"]
+ENV PYTHONPATH=/app
+
+CMD ["python","./basic_data_loading/main.py"]

@@ -3,8 +3,9 @@ from components.kafka_consumer import KafkaConsumer
 from components.es_index import EsIndex
 from components.mongo_gridFs import MongoGridFs
 
-from loggers import Logger
+from shared.loggers import Logger
 logger = Logger.get_logger()
+
 
 
 class StorageOrchestrator:

@@ -3,9 +3,8 @@ from components.loading_variables import LoadingVariables
 from components.extract_metadata import ExtractMetadata
 from components.kafka_producer import KafkaProducer
 
-from loggers import Logger
+from shared.loggers import Logger
 logger = Logger.get_logger()
-
 
 
 class LoadingOrchestrator:
