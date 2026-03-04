@@ -10,15 +10,16 @@ class EsIndex:
         self.es = Elasticsearch(self.es_uri)
         if not self.es.indices.exists(index=index_name):
             self.create_index()
-            print('i create the index')
+            self.logger.info('i create the index')
         else:
-            print('the index already exists')
+            self.logger.info('the index already exists')
 
 
     def create_index(self):
         mapping =  {'properties':
             {
                 'id': {'type': 'keyword'},
+                'extracted_info': {'type':'text'},
                 'name': {'type': 'keyword'},
                 'size_bytes': {'type': 'integer'},
                 'modify_time': {'type': 'date'},

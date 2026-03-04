@@ -3,6 +3,8 @@ from components.loading_variables import LoadingVariables
 from components.extract_metadata import ExtractMetadata
 from components.kafka_producer import KafkaProducer
 
+
+
 from shared.loggers import Logger
 logger = Logger.get_logger()
 
