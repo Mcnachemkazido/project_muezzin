@@ -12,7 +12,7 @@ class MongoGridFs:
 
     def storing_in_grid_fs(self,file_path,file_id):
         with open(file_path, 'rb') as file_data:
-            self.fs.put(file_data,file_id=file_id, description='balabla')
-            self.logger.info(f"3️⃣File uploaded with file_id: {file_id}")
+            self.fs.put(file_data,file_id=file_id, description='metadata from sound')
+            self.logger.info(f"3️⃣i insert new value to mongodb file id: {file_id}")
 
 

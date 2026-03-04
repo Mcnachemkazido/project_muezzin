@@ -25,6 +25,7 @@ class KafkaConsumer:
                 continue
             if msg.error():
                 self.logger.error(f'error: {msg.error()}')
+                continue
 
             data = json.loads(msg.value().decode('utf-8'))
             data['id'] = str(uuid4())

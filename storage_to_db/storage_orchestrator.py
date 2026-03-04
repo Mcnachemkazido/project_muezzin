@@ -3,9 +3,8 @@ from components.kafka_consumer import KafkaConsumer
 from components.es_index import EsIndex
 from components.mongo_gridFs import MongoGridFs
 
-import logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from loggers import Logger
+logger = Logger.get_logger()
 
 
 class StorageOrchestrator:
@@ -27,13 +26,13 @@ class StorageOrchestrator:
 
 
 kafka_consumer = KafkaConsumer('storage_group','basic_data'
-        ,StorageVariables.get_kafka_host(),logging.getLogger(KafkaConsumer.__module__))
+        ,StorageVariables.get_kafka_host(),logger)
 
 es = EsIndex(StorageVariables.get_es_uri(),
-             'metadata',logging.getLogger(EsIndex.__module__))
+             'metadata',logger)
 
 mongo_grid_fs = MongoGridFs(StorageVariables.get_mongodb_uri(),
-                      'muezzin',logging.getLogger(MongoGridFs.__module__))
+                      'muezzin',logger)
 
 
 

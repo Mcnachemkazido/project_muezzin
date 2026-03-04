@@ -27,6 +27,15 @@ class StorageVariables:
 
 
 
+    @staticmethod
+    def get_logger_name():
+        logger_name = os.getenv("LOGGER_NAME")
+        if logger_name:
+            return logger_name
+        return False
+
+
+
 
 
 

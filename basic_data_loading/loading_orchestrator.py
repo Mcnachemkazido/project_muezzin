@@ -1,15 +1,10 @@
+import os
 from components.loading_variables import LoadingVariables
 from components.extract_metadata import ExtractMetadata
 from components.kafka_producer import KafkaProducer
-import os
-import logging
 
-logging.basicConfig(level=logging.INFO)
-
-logger = logging.getLogger(__name__)
-
-
-
+from loggers import Logger
+logger = Logger.get_logger()
 
 
 
@@ -30,10 +25,10 @@ class LoadingOrchestrator:
             self.producer.send(info)
 
 
-creating_metadata = ExtractMetadata(logging.getLogger(ExtractMetadata.__module__))
+creating_metadata = ExtractMetadata(logger)
 
-producer = KafkaProducer(LoadingVariables.get_kafka_host(),'basic_data',
-                         logging.getLogger(KafkaProducer.__module__))
+producer = KafkaProducer(LoadingVariables.get_kafka_host(),'basic_data',logger)
+
 
 loading_orchestrator = LoadingOrchestrator(producer,creating_metadata,
                         LoadingVariables.get_path_files(),logger)

@@ -31,7 +31,7 @@ class EsIndex:
 
     def insert_new_value(self,value,file_id):
         self.es.index(index=self.index_name,id=file_id,document=value)
-        self.logger.info(f'2️⃣i insert new value to mongodb file id:{file_id}')
+        self.logger.info(f'2️⃣i insert new metadata to es file id:{file_id}')
 
 
 

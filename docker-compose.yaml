@@ -82,12 +82,17 @@ services:
     environment:
       PATH_FILES: data/podcasts
       BOOTSTRAP_SERVERS: kafka:29092
+      LOGGER_NAME: data_tracking
+      ES_URI: http://elasticsearch:9200
     volumes:
       - C:/podcasts:/app/data/podcasts
 
     depends_on:
       kafka:
         condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+
 
   storage_to_db:
     build: ./storage_to_db
@@ -96,6 +101,8 @@ services:
       BOOTSTRAP_SERVERS: kafka:29092
       ES_URI: http://elasticsearch:9200
       MONGO_URI: mongodb://root:asdf@mongodb:27017
+      LOGGER_NAME: data_tracking
+
     volumes:
       - C:/podcasts:/app/data/podcasts
     depends_on:
