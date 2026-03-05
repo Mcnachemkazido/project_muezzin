@@ -8,14 +8,10 @@ class EsUpdate:
         self.logger = logger
         self.es = Elasticsearch(es_host)
 
+
     def update(self,extracted_info,file_id):
-        self.es.update(index=self.index,id=file_id,doc=extracted_info)
+        self.es.update(index=self.index,id=file_id,doc={'extracted_info':extracted_info})
+        self.logger.info(f'4️⃣I updated the index:{self.index} in es with new data fron file id {file_id}')
 
 
 
-# text = {'extracted_info':'welcome back today I cant stop thinking about Gaza the'}
-# image_id = 'd3921482-fb8e-4c93-b253-fbc1a73fb212'
-#
-#
-# es = EsUpdate('http://localhost:9200','metadata','aaa')
-# es.update(text,image_id)

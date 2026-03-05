@@ -21,7 +21,7 @@ class KafkaProducer:
         if err:
             self.logger.errer(f'err: {err}')
         if msg:
-            self.logger.info(f'msg:{msg.value().decode('utf-8')}')
+            self.logger.info(f"msg:{msg.value().decode('utf-8')}")
             self.logger.info(f'topic :{msg.topic()}, offset:{msg.offset()}')
 
 

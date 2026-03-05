@@ -9,6 +9,7 @@ class KafkaConsumer:
         self.topic_name = topic_name
         self.logger = logger
 
+
         self.consumer_config = \
             {"group.id":self.group_id,
             "bootstrap.servers":self.bootstrap_servers,
@@ -23,14 +24,13 @@ class KafkaConsumer:
             if msg is None:
                 continue
             if msg.error():
-                self.logger.errer(f'error: {msg.error()}')
+                self.logger.error(f'error: {msg.error()}')
                 continue
 
             info = json.loads(msg.value().decode('utf-8'))
+            self.logger.info(f'1️⃣I received a new file, file id: {info}')
             return info
 
 
 
 
-# kafka_consumer = KafkaConsumer('localhost:9092','group_stt','stt','a')
-# print(kafka_consumer.consume())

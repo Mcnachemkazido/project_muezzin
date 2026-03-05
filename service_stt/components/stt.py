@@ -14,30 +14,14 @@ class Stt:
 
         try:
             text = self.recognizer.recognize_google(audio_data)
-            # self.logger.info(f'I was able to convert it to text')
+            self.logger.info(f'3️⃣I was able to convert it to text')
             return text
 
         except sr.UnknownValueError:
-            print("Speech recognition could not understand the audio.")
+            self.logger.error("3️⃣Speech recognition could not understand the audio.")
         except sr.RequestError as e:
-            print(f"Could not request results from service; {e}")
+            self.logger.error(f"3️⃣Could not request results from service; {e}")
 
 
-
-
-
-
-
-
-
-
-from mongo_gridFs import x
-
-
-# audio_file = "C:/podcasts/download (33).wav"
-# audio_file_2 = "C:/podcasts/download (4).wav"
-#
-# s = Stt('ss')
-# print(s.conversion_to_text(x))
 
 

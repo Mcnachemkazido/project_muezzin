@@ -6,7 +6,6 @@ class EsIndex:
         self.es_uri = es_uri
         self.index_name = index_name
         self.logger = logger
-
         self.es = Elasticsearch(self.es_uri)
         if not self.es.indices.exists(index=index_name):
             self.create_index()

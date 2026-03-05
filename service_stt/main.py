@@ -1,10 +1,5 @@
-from elasticsearch import Elasticsearch
+from stt_orchestrator import stt_orchestrator
 
+if __name__ == "__main__":
+    stt_orchestrator.run()
 
-es = Elasticsearch('http://localhost:9200')
-
-
-res = es.search(index='metadata',query={'match_all':{}},size=100)
-hits = res['hits']['hits']
-for hit in hits:
-    print(hit)
