@@ -154,6 +154,24 @@ services:
       elasticsearch:
         condition: service_healthy
 
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: api
+    ports:
+      - "8000:8000"
+    environment:
+      ES_URI: http://elasticsearch:9200
+      LOGGER_NAME: data_tracking
+    depends_on:
+      kafka:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+
 
 volumes:
   kafka_data:
