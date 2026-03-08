@@ -16,4 +16,3 @@ class EsUpdate:
         self.logger.info(f'3️⃣I updated the data in es for id:{id}')
 
 
-
