@@ -119,24 +119,40 @@ services:
         condition: service_healthy
 
 
-#  service_stt:
-#    build:
-#      context: .
-#      dockerfile: service_stt/Dockerfile
-#    container_name: service_stt
-#    environment:
-#      BOOTSTRAP_SERVERS: kafka:29092
-#      ES_URI: http://elasticsearch:9200
-#      MONGO_URI: mongodb://root:asdf@mongodb:27017
-#      PYTHONUNBUFFERED: 1
-#
-#    depends_on:
-#      kafka:
-#        condition: service_healthy
-#      mongodb:
-#        condition: service_healthy
-#      elasticsearch:
-#        condition: service_healthy
+  service_stt:
+    build:
+      context: .
+      dockerfile: service_stt/Dockerfile
+    container_name: service_stt
+    environment:
+      BOOTSTRAP_SERVERS: kafka:29092
+      ES_URI: http://elasticsearch:9200
+      MONGO_URI: mongodb://root:asdf@mongodb:27017
+      LOGGER_NAME: data_tracking
+
+    depends_on:
+      kafka:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+
+
+  data_analysis:
+    build:
+      context: .
+      dockerfile: data_analysis/Dockerfile
+    container_name: data_analysis
+    environment:
+      BOOTSTRAP_SERVERS: kafka:29092
+      ES_URI: http://elasticsearch:9200
+      LOGGER_NAME: data_tracking
+    depends_on:
+      kafka:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
 
 
 volumes:

@@ -22,7 +22,10 @@ class EsIndex:
                 'name': {'type': 'keyword'},
                 'size_bytes': {'type': 'integer'},
                 'modify_time': {'type': 'date'},
-                'create_time': {'type': 'date'}
+                'create_time': {'type': 'date'},
+                'bds_percent' : {'type':'float'},
+                'is_bds': {'type':'boolean'},
+                'bds_threat_level': {'type':'keyword'}
             }
                     }
 

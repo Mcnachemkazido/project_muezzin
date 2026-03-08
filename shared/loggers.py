@@ -27,8 +27,8 @@ class Logger:
                          })
                      except Exception as e:
                         print(f"ES log failed: {e}")
-            logger.addHandler(ESHandler())
             logger.addHandler(logging.StreamHandler())
+            logger.addHandler(ESHandler())
         cls._logger = logger
         return logger
 
