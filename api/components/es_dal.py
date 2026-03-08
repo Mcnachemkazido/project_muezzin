@@ -66,14 +66,6 @@ class EsDal:
         response = [{i['key']: i['avg']['value']} for i in res['aggregations']['my_agg']['buckets']]
         return response
 
-#
-# from es_conn import EsConn
-# es = EsConn('http://localhost:9200').es
-# es.ping()
-#
-# res = es.search( query={'match_all':{}}, size=50, index='metadata' )
-# response = [hit['_source'] for hit in res['hits']['hits']]
-# print(response)
 
 
 
